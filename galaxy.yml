@@ -9,14 +9,16 @@ description: Ansible Collection for Linux System hardening
 license_file: LICENSE
 tags: [ asap, linux, hardening ]
 
-dependencies: {}
+dependencies:
+  ansible.posix: '>=1.0.0'
+  community.general: '>=1.0.0'
 
 repository: https://github.com/ASAP-Initiative/ansible-collection_asap.linux_hardening
 
-documentation: 
-homepage: 
+documentation:
+homepage:
 issues: https://github.com/ASAP-Initiative/ansible-collection_asap.linux_hardening/issues
 
-build_ignore: 
+build_ignore:
   - .github
   - .gitignore
