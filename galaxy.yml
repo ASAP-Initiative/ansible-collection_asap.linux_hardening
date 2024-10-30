@@ -1,0 +1,22 @@
+---
+namespace: asap
+name: linux_hardening
+version: 0.0.2
+readme: README.md
+authors:
+  - Sebastien Thebert
+description: Ansible Collection for Linux System hardening
+license_file: LICENSE
+tags: [ asap, linux, hardening ]
+
+dependencies: {}
+
+repository: https://github.com/ASAP-Initiative/ansible-collection_asap.linux_hardening
+
+documentation: 
+homepage: 
+issues: https://github.com/ASAP-Initiative/ansible-collection_asap.linux_hardening/issues
+
+build_ignore: 
+  - .github
+  - .gitignore

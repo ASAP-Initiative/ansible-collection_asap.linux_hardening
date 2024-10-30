@@ -1,0 +1,30 @@
+---
+- name: "Create a Volume Group '{{ partition['vg'] }}' on Physical Volume '{{ partition['disk'] }}'"
+  community.general.lvg:
+    vg: "{{ partition['vg'] }}"
+    pvs: "{{ partition['disk'] }}"
+
+- name: "Create a Logical Volume '{{ partition['lv'] }}' in Volume Group '{{ partition['vg'] }}'"
+  community.general.lvol:
+    vg: "{{ partition['vg'] }}"
+    lv: "{{ partition['lv'] }}"
+    size: "{{ partition['size'] }}"
+    pvs: "{{ partition['disk'] }}"
+    shrink: false
+
+- name: "Set variable 'device_partition=/dev/mapper/{{ partition['vg'] }}-{{ partition['lv'] }}'"
+  ansible.builtin.set_fact:
+    device_partition: "/dev/mapper/{{ partition['vg'] }}-{{ partition['lv'] }}"
+
+- name: "Format partition '{{ device_partition }}' with type '{{ partition['fstype'] }}'"
+  community.general.filesystem:
+    fstype: "{{ partition['fstype'] }}"
+    dev: "{{ device_partition }}"
+
+- name: "Mount partition '{{ device_partition }}' ({{ partition['fstype'] }}) on path '{{ partition['path'] }}'"
+  ansible.posix.mount:
+    path: "{{ partition['path'] }}"
+    src: "{{ device_partition }}"
+    fstype: "{{ partition['fstype'] }}"
+    opts: "{{ partition['mount_options'] }}"
+    state: mounted

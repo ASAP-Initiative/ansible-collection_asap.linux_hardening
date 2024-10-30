@@ -1,0 +1,12 @@
+---
+- name: "Install required packages"
+  ansible.builtin.package:
+    name: "{{ cis_hardening_required_packages }}"
+    state: present
+
+- name: "Include Tasks from 'filesystem_partition.yml'"
+  ansible.builtin.include_tasks: filesystem_partition.yml
+  loop: "{{ filesystem_partitions }}"
+  loop_control:
+    loop_var: partition
+    label: "{{ partition.path }}"
